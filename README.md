@@ -3,7 +3,7 @@
 	<h1>Project Reloaded: Assembler Library</h1>
 	<img src="https://i.imgur.com/BjPn7rU.png" width="150" align="center" />
 	<br/> <br/>
-	<strong><i>X86 Assembly is like IKEA Furniture</i></strong>
+	<strong><i>x86 Assembly is like IKEA Furniture</i></strong>
 	<br/> <br/>
 	<!-- Coverage -->
 	<a href="https://codecov.io/gh/Reloaded-Project/Reloaded.Assembler">
@@ -85,7 +85,7 @@ Below is a quick list of differences you should expect when using Reloaded.Assem
 
 ## Other Links
 
-Flat Assembler forums post : (TBD)
+Flat Assembler forums post : https://board.flatassembler.net/templates/phpVB2/images/icon_minipost.gif
 
 This post briefly describes the changes I made to the experimental `FASMX64` DLL that made it consumable from C# (and likely other high level languages). 
 
