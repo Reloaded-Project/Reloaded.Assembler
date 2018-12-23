@@ -22,11 +22,6 @@
     <RepositoryUrl>https://github.com/Reloaded-Project/Reloaded.Assembler</RepositoryUrl>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-
   <ItemGroup>
     <None Remove="FASM.DLL" />
     <None Remove="FASMX64.DLL" />
