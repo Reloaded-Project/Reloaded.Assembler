@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -38,10 +38,9 @@ namespace Reloaded.Assembler.Definitions
         /// <summary>
         /// Retrieves the <see cref="FasmLineHeader"/> struct from memory.
         /// </summary>
-        public FasmLineHeader GetLineHeader()
+        public unsafe FasmLineHeader GetLineHeader()
         {
-            Memory.Sources.Memory.CurrentProcess.Read((IntPtr)ErrorLine, out FasmLineHeader value);
-            return value;
+            return *(FasmLineHeader*)ErrorLine;
         }
     }
 }

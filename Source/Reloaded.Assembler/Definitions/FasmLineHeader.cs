@@ -7,12 +7,9 @@ using System.Text;
 namespace Reloaded.Assembler.Definitions
 {
     /// <summary/>
-    [ExcludeFromCodeCoverage]
     [StructLayout(LayoutKind.Explicit)]
-    public unsafe class FasmLineHeader
+    public unsafe struct FasmLineHeader
     {
-        // Currently unused
-
         /// <summary>
         /// 32bit pointer to the file path of the source file.
         /// </summary>
