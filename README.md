@@ -9,6 +9,10 @@
 	<a href="https://codecov.io/gh/Reloaded-Project/Reloaded.Assembler">
 		<img src="https://codecov.io/gh/Reloaded-Project/Reloaded.Assembler/branch/master/graph/badge.svg" alt="Coverage" />
 	</a>
+	<!-- NuGet -->
+	<a href="https://www.nuget.org/packages/Reloaded.Assembler">
+		<img src="https://img.shields.io/nuget/v/Reloaded.Assembler.svg" alt="NuGet" />
+	</a>
 	<!-- Build Status -->
 	<a href="https://ci.appveyor.com/project/sewer56lol/reloaded-assembler">
 		<img src="https://ci.appveyor.com/api/projects/status/yats2utii7jss9ap?svg=true" alt="Build Status" />
