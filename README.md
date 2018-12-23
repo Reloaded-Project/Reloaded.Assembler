@@ -22,7 +22,7 @@
 # Introduction
 Reloaded.Assembler is a minimal .NET wrapper around the simple, easy to use Flat Assembler written by Tomasz Grysztar.
 
-It combines the standard tried and tested `FASM` DLL and a modified version of the recent experimental `FASMX64` DLL to provide JIT, on the fly assembly of user supplied mnemonics inside x86 and x64 programs.
+It combines the standard tried and tested `FASM` DLL and a and the recent experimental official `FASMX64` DLL to provide JIT, on the fly assembly of user supplied mnemonics inside x86 and x64 programs.
 
 ## Getting Started
 
@@ -87,15 +87,17 @@ Below is a quick list of differences you should expect when using Reloaded.Assem
 - Reloaded.Assembler is written in pure C#, FASM.NET is written in C++/CLI.
 - Reloaded.Assembler has a slightly more minimal interface.
 
+## Misc Notes
+Version 1.0.0 of the library uses custom modified FASMX64. 
+(Official version at the time had a bug in DLLEntryPoint that prevented it from loading).
+
+Version 1.0.1 and onward use the official FASMX64 DLL.
+
 ## Other Links
 
-Flat Assembler forums post : https://board.flatassembler.net/templates/phpVB2/images/icon_minipost.gif
+Flat Assembler forums post : https://board.flatassembler.net/topic.php?p=207558#207558
 
-This post briefly describes the changes I made to the experimental `FASMX64` DLL that made it consumable from C# (and likely other high level languages). 
-
-## Misc. Notes
-
-The folder `Source/FASMX64` contains the source code of my modified version of `FASMX64` DLL. This is a "fixed" version of the modified version of FASM made by the flat assembler forum member *bazizmix*. (See link in "Other Links" for more details).
+This post briefly describes the changes I made to the experimental `FASMX64` DLL for version 1.0.0 of this library that made it consumable from C# (and likely other high level languages). 
 
 ## Contributions
 As with the standard for all of the `Reloaded-Project`, repositories; contributions are very welcome and encouraged.
