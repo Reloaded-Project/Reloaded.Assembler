@@ -9,6 +9,17 @@
     <Platforms>AnyCPU;x86;x64</Platforms>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Sewer56</Authors>
+    <Product>Reloaded</Product>
+    <Description>Minimal .NET wrapper around the simple, easy to use Flat Assembler written by Tomasz Grysztar. Supports both x64 and x86 development.</Description>
+    <Copyright>LGPL V3</Copyright>
+    <PackageLicenseUrl>https://github.com/Reloaded-Project/Reloaded.Assembler/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Reloaded-Project/Reloaded.Assembler</PackageProjectUrl>
+    <PackageIconUrl>https://avatars1.githubusercontent.com/u/45473408?s=400&amp;u=b591dd9f053703e87a08ccc56287a9119e9758cb&amp;v=4</PackageIconUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Reloaded-Project/Reloaded.Assembler</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

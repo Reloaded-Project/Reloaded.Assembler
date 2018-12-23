@@ -6,19 +6,19 @@
 	<strong><i>X86 Assembly is like IKEA Furniture</i></strong>
 	<br/> <br/>
 	<!-- Coverage -->
-	<a href="">
-		<img src="" alt="Coverage" />
+	<a href="https://codecov.io/gh/Reloaded-Project/Reloaded.Assembler">
+		<img src="https://codecov.io/gh/Reloaded-Project/Reloaded.Assembler/branch/master/graph/badge.svg" alt="Coverage" />
 	</a>
 	<!-- Build Status -->
-	<a href="">
-		<img src="" alt="Build Status" />
+	<a href="https://ci.appveyor.com/project/sewer56lol/reloaded-assembler">
+		<img src="https://ci.appveyor.com/api/projects/status/yats2utii7jss9ap?svg=true" alt="Build Status" />
 	</a>
 </div>
 
 # Introduction
 Reloaded.Assembler is a minimal .NET wrapper around the simple, easy to use Flat Assembler written by Tomasz Grysztar.
 
-It combines the standard tried and tested `FASM`DLL and a modified version of the recent experimental `FASMX64` DLL to provide JIT, on the fly assembly of user supplied mnemonics inside x86 and x64 programs.
+It combines the standard tried and tested `FASM` DLL and a modified version of the recent experimental `FASMX64` DLL to provide JIT, on the fly assembly of user supplied mnemonics inside x86 and x64 programs.
 
 ## Getting Started
 
@@ -45,7 +45,7 @@ byte[] actual = asm.Assemble(mnemonics);
 ```
 
 
-Just don't forget to dispose the assembler when you're done ??,
+Just don't forget to dispose the assembler when you're done 😉,
 
 ```csharp
 assembler.Dispose();
@@ -96,4 +96,4 @@ The folder `Source/FASMX64` contains the source code of my modified version of `
 ## Contributions
 As with the standard for all of the `Reloaded-Project`, repositories; contributions are very welcome and encouraged.
 
-Feel free to implement new features, make bug fixes or suggestions so long as they are accompanied by an issue with a clear description of the pull request ??.
+Feel free to implement new features, make bug fixes or suggestions so long as they are accompanied by an issue with a clear description of the pull request 😉.
