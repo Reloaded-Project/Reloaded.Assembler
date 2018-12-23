@@ -6,6 +6,7 @@ using System.Text;
 
 namespace Reloaded.Assembler.Definitions
 {
+    /// <summary/>
     [ExcludeFromCodeCoverage]
     [StructLayout(LayoutKind.Explicit)]
     public unsafe class FasmLineHeader
@@ -18,9 +19,11 @@ namespace Reloaded.Assembler.Definitions
         [FieldOffset(0)]
         public int FilePathPtr;
 
+        /// <summary/>
         [FieldOffset(4)]
         public int LineNumber;
 
+        /// <summary/>
         [FieldOffset(8)]
         public int FileOffset;
 

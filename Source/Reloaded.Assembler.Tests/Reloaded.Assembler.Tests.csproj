@@ -27,10 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="System.Windows.Forms" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="PE64DEMO.ASM">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

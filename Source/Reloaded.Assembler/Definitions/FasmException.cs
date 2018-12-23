@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Reloaded.Assembler.Definitions
 {
+    /// <summary/>
     public class FasmException : Exception
     {
         /// <summary>

@@ -7,6 +7,7 @@ using Reloaded.Assembler.Definitions;
 
 namespace Reloaded.Assembler
 {
+    /// <summary/>
     public class FasmDelegates
     {
         /// <summary>
@@ -25,7 +26,7 @@ namespace Reloaded.Assembler
         /// <param name="nPassesLimit">A value in range from 1 to 65536, defining
         /// the maximum number of passes the assembler can perform in order to generate the code.</param>
         /// <param name="hDisplayPipe">The hDisplayPipe should contain handle of the pipe, to which the output of DISPLAY directives will be written.</param>
-        /// <returns>The return value is a <see cref="FasmResult"> enum instance.</returns>
+        /// <returns>The return value is a <see cref="FasmResult"/> enum instance.</returns>
         [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         public delegate FasmResult fasm_Assemble(IntPtr lpSource, IntPtr lpMemory, IntPtr nSize, int nPassesLimit, IntPtr hDisplayPipe);

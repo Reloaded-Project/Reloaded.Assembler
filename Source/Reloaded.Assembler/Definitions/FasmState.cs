@@ -11,12 +11,15 @@ namespace Reloaded.Assembler.Definitions
     [StructLayout(LayoutKind.Explicit)]
     public unsafe struct FasmState
     {
+        /// <summary/>
         [FieldOffset(0)]
         public FasmResult Condition;
 
+        /// <summary/>
         [FieldOffset(4)]
         public int OutputLength;
 
+        /// <summary/>
         [FieldOffset(4)]
         public FasmErrors ErrorCode;
 

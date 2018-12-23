@@ -1,8 +1,9 @@
 ﻿namespace Reloaded.Assembler.Definitions
 {
+    /// <summary/>
     public enum FasmResult : int
     {
-
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         Ok = 0,
         Working = 1,
         Error = 2,

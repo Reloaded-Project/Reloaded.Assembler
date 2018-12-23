@@ -6,6 +6,7 @@ using System.Text;
 
 namespace Reloaded.Assembler.Kernel32
 {
+    /// <summary/>
     public class Kernel32
     {
         /// <summary>

@@ -9,6 +9,7 @@ namespace Reloaded.Assembler.Definitions
     /// </summary>
     public enum FasmErrors : int
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         FileNotFound = -101,
         ErrorReadingFile = -102,
         InvalidFileFormat = -103,
