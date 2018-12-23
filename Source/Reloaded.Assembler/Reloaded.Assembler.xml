@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Reloaded.Assembler</name>
+    </assembly>
+    <members>
+        <member name="T:Reloaded.Assembler.Assembler">
+            <summary>
+            Assembler class allows you to assemble X86 and X64 mnemonics using FASM.
+            </summary>
+        </member>
+        <member name="M:Reloaded.Assembler.Assembler.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Creates a new instance of the FASM assembler.
+            </summary>
+            <param name="textSize">
+                The minimum size of the buffer to be used for passing the
+                text to be assembled to FASM Assembler.
+            </param>
+            <param name="resultSize">
+                The minimum size of the buffer to be used for FASM to return the
+                text to be assembled.
+            </param>
+        </member>
+        <member name="M:Reloaded.Assembler.Assembler.GetVersion">
+            <summary>
+            Retrieves the version of the internally used FASM assembler DLL.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Reloaded.Assembler.Assembler.Assemble(System.String[],System.UInt16)">
+            <summary>
+            Assembles the given mnemonics.
+            </summary>
+            <param name="mnemonics">The mnemonics to assemble.</param>
+            <param name="passLimit">The maximum number of passes to perform when assembling data.</param>
+        </member>
+        <member name="M:Reloaded.Assembler.Assembler.Assemble(System.String,System.UInt16)">
+            <summary>
+            Assembles the given mnemonics.
+            </summary>
+            <param name="mnemonics">The mnemonics to assemble; delimited by new line \n for each new instruction.</param>
+            <param name="passLimit">The maximum number of passes to perform when assembling data.</param>
+        </member>
+        <member name="M:Reloaded.Assembler.Assembler.Dispose">
+            <summary>
+            Releases the allocated memory for the assembler.
+            </summary>
+        </member>
+        <member name="M:Reloaded.Assembler.Assembler.AllocateText(System.Int32,System.Int32,Reloaded.Memory.Buffers.MemoryBufferHelper)">
+            <summary>
+            Attempts to allocate the memory to store the text to be supplied to FASM assembler.
+            </summary>
+        </member>
+        <member name="M:Reloaded.Assembler.Assembler.AllocateResult(System.Int32,System.Int32,Reloaded.Memory.Buffers.MemoryBufferHelper)">
+            <summary>
+            Attempts to allocate the memory to store the result received from FASM assembler.
+            </summary>
+        </member>
+        <member name="T:Reloaded.Assembler.Definitions.FasmErrors">
+            <summary>
+            Lists all FASM Assembler Errors
+            </summary>
+        </member>
+        <member name="M:Reloaded.Assembler.Definitions.FasmException.#ctor(Reloaded.Assembler.Definitions.FasmErrors,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Reloaded.Assembler.Definitions.FasmException" /> class.
+            </summary>
+            <param name="errorCode">The error code returned.</param>
+            <param name="errorLine">The line where the error has occured.</param>
+            <param name="errorOffset">The offset within the data where the error line starts.</param>
+            <param name="mnemonics">The assembled mnemonics when the error occurred.</param>
+        </member>
+        <member name="F:Reloaded.Assembler.Definitions.FasmLineHeader.FilePathPtr">
+            <summary>
+            32bit pointer to the file path of the source file.
+            </summary>
+        </member>
+        <member name="F:Reloaded.Assembler.Definitions.FasmLineHeader.MacroCallingFilePtr">
+            <summary>
+            32bit pointer to the LINE_HEADER structure for the line which called the macroinstruction.
+            </summary>
+        </member>
+        <member name="F:Reloaded.Assembler.Definitions.FasmLineHeader.MacroLinePtr">
+            <summary>
+            32bit pointer to the LINE_HEADER structure for the line within the definition of macroinstruction, which generated this one.
+            </summary>
+        </member>
+        <member name="M:Reloaded.Assembler.Definitions.FasmSimpleException.#ctor(Reloaded.Assembler.Definitions.FasmErrors,Reloaded.Assembler.Definitions.FasmResult)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Reloaded.Assembler.Definitions.FasmException" /> class.
+            </summary>
+            <param name="errorCode">The error code returned.</param>
+            <param name="condition"></param>
+        </member>
+        <member name="T:Reloaded.Assembler.Definitions.FasmState">
+            <summary>
+            Defines the state of the FASM assembler after an assembly operation.
+            </summary>
+        </member>
+        <member name="F:Reloaded.Assembler.Definitions.FasmState.OutputData">
+            <summary>
+            32bit pointer to the output bytes.
+            </summary>
+        </member>
+        <member name="F:Reloaded.Assembler.Definitions.FasmState.ErrorLine">
+            <summary>
+            32bit pointer to the <see cref="T:Reloaded.Assembler.Definitions.FasmLineHeader"/> struct.
+            </summary>
+        </member>
+        <member name="M:Reloaded.Assembler.Fasm32.GetVersion">
+            <summary>
+            Returns the version of the FASM compiler inside FASM.DLL
+            </summary>
+            <returns>The return value is a double word containing the major version in lower 16 bits, and minor version in the higher 16 bits.</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Reloaded.Assembler.Fasm32.Assemble(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)" -->
+        <member name="M:Reloaded.Assembler.Fasm64.GetVersion">
+            <summary>
+            Returns the version of the FASM compiler inside FASM.DLL
+            </summary>
+            <returns>The return value is a double word containing the major version in lower 16 bits, and minor version in the higher 16 bits.</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Reloaded.Assembler.Fasm64.Assemble(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)" -->
+    </members>
+</doc>
