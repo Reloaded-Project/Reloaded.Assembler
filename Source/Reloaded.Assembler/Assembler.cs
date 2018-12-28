@@ -42,11 +42,17 @@ namespace Reloaded.Assembler
         private IntPtr  _resultAddress;
         private int     _resultSize;
 
-        private readonly Memory.Sources.Memory _processMemory;
-
-        // ADL Specific
+        private static MemoryBufferHelper _bufferHelper;
+        private static Memory.Sources.Memory _processMemory;
+        
         private readonly FasmDelegates.fasm_Assemble   _assembleFunction;
         private readonly FasmDelegates.fasm_GetVersion _getVersionFunction;
+
+        static Assembler()
+        {
+            _processMemory = new Memory.Sources.Memory();
+            _bufferHelper = new MemoryBufferHelper(Process.GetCurrentProcess());
+        }
 
         /// <summary>
         /// Creates a new instance of the FASM assembler.
@@ -61,14 +67,9 @@ namespace Reloaded.Assembler
         /// </param>
         public Assembler(int textSize = 0x10000, int resultSize = 0x8000)
         {
-            // Find fitting buffer.
-            _processMemory = new Memory.Sources.Memory();
-            var thisProcess = Process.GetCurrentProcess();
-            var bufferHelper = new MemoryBufferHelper(thisProcess);
-
             // Attempt allocation of memory X times.
-            AllocateText(textSize, 3, bufferHelper);
-            AllocateResult(resultSize, 3, bufferHelper);
+            AllocateText(textSize, 3, _bufferHelper);
+            AllocateResult(resultSize, 3, _bufferHelper);
 
             IntPtr fasmDllHandle;
 
