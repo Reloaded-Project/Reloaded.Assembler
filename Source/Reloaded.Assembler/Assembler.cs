@@ -92,7 +92,14 @@ namespace Reloaded.Assembler
             _getVersionFunction = Marshal.GetDelegateForFunctionPointer<FasmDelegates.fasm_GetVersion>(getVersionAddress);
         }
 
-        
+        /// <summary>
+        /// Destroys this instance of the class.
+        /// </summary>
+        ~Assembler()
+        {
+            Dispose();
+        }
+
         /// <summary>
         /// Retrieves the version of the internally used FASM assembler DLL.
         /// </summary>
