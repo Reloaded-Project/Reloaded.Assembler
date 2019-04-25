@@ -21,7 +21,7 @@
     <PackageIconUrl>https://avatars1.githubusercontent.com/u/45473408?s=400&amp;u=b591dd9f053703e87a08ccc56287a9119e9758cb&amp;v=4</PackageIconUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Reloaded-Project/Reloaded.Assembler</RepositoryUrl>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
   </PropertyGroup>
 
   <ItemGroup>
