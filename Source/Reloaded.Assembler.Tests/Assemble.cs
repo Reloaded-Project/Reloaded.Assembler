@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using Reloaded.Assembler.Definitions;
 using Reloaded.Memory.Buffers.Internal.Kernel32;
 using Reloaded.Memory.Buffers.Internal.Utilities;
@@ -45,6 +46,22 @@ namespace Reloaded.Assembler.Tests
             byte[] expected = { 0xFF, 0x25, 0x56, 0x34, 0x12, 0x00 };
             Assert.Equal(expected, actual);
             asm.Dispose();
+        }
+
+        [Fact]
+        public void ConcurrentAssembleMnemonics()
+        {
+            int numThreads = 100;
+            var threads = new Thread[numThreads];
+
+            for (int x = 0; x < numThreads; x++)
+            {
+                threads[x] = new Thread(AssembleMnemonics);
+                threads[x].Start();
+            }
+
+            foreach (var thread in threads)
+                thread.Join();
         }
 
         [Fact]
