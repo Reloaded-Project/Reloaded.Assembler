@@ -25,10 +25,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Reloaded.Memory.Buffers" Version="1.2.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Reloaded.Assembler.targets" Pack="true" PackagePath="build" />
     <None Include="FASM-LICENSE.TXT" Pack="true" PackagePath="build">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -39,5 +35,9 @@
     <None Include="FASMX64.DLL" Pack="true" PackagePath="build">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Reloaded.Memory.Buffers" Version="1.2.0" />
   </ItemGroup>
 </Project>

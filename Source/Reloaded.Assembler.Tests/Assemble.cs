@@ -41,7 +41,7 @@ namespace Reloaded.Assembler.Tests
                 "use32",
                 "jmp dword [0x123456]"
             };
-            
+
             byte[] actual = asm.Assemble(mnemonics);
             byte[] expected = { 0xFF, 0x25, 0x56, 0x34, 0x12, 0x00 };
             Assert.Equal(expected, actual);
@@ -56,12 +56,29 @@ namespace Reloaded.Assembler.Tests
 
             for (int x = 0; x < numThreads; x++)
             {
-                threads[x] = new Thread(AssembleMnemonics);
+                threads[x] = new Thread(() =>
+                {
+                    for (int y = 0; y < 4; y++)
+                    {
+                        AssembleMnemonics();
+                    }
+                });
                 threads[x].Start();
             }
 
             foreach (var thread in threads)
                 thread.Join();
+        }
+
+        [Fact]
+        public void AssemblerSpam()
+        {
+            // The purpose of this test is to check for bad disposal/memory
+            // allocation/deallocation synchronization problems.
+            for (int x = 0; x < 5000; x++)
+            {
+                AssembleMnemonics();
+            }
         }
 
         [Fact]
@@ -86,8 +103,6 @@ namespace Reloaded.Assembler.Tests
                 Assert.Equal(2, ex.Line);
                 Assert.Equal(FasmErrors.OperandSizeNotSpecified, ex.ErrorCode);
             }
-
-            asm.Dispose();
         }
 
         [Fact]
@@ -112,7 +127,6 @@ namespace Reloaded.Assembler.Tests
                 mnemonics.Add("jmp dword [0x123456]");
 
             Assert.Throws<FasmWrapperException>(() => { asm.Assemble(mnemonics.ToArray()); });
-            asm.Dispose();
         }
     }
 }

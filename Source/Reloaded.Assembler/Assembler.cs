@@ -44,12 +44,13 @@ namespace Reloaded.Assembler
         private IntPtr  _resultAddress;
         private int     _resultSize;
 
-        private static MemoryBufferHelper _bufferHelper;
-        private static Memory.Sources.Memory _processMemory;
+        private static readonly MemoryBufferHelper _bufferHelper;
+        private static readonly Memory.Sources.Memory _processMemory;
         
         private readonly FasmDelegates.fasm_Assemble   _assembleFunction;
         private readonly FasmDelegates.fasm_GetVersion _getVersionFunction;
 
+        /* Create the common static members. */
         static Assembler()
         {
             _processMemory = new Memory.Sources.Memory();
@@ -70,9 +71,9 @@ namespace Reloaded.Assembler
         public Assembler(int textSize = 0x10000, int resultSize = 0x8000)
         {
             // Attempt allocation of memory X times.
-            AllocateText(textSize, 3, _bufferHelper);
-            AllocateResult(resultSize, 3, _bufferHelper);
-            
+            AllocateText(textSize, 3);
+            AllocateResult(resultSize, 3);
+
             IntPtr fasmDllHandle;
 
             // Set functions
@@ -100,6 +101,16 @@ namespace Reloaded.Assembler
         ~Assembler()
         {
             Dispose();
+        }
+
+        /// <summary>
+        /// Releases the allocated memory for the assembler.
+        /// </summary>
+        public void Dispose()
+        {
+            _bufferHelper.Free(_textAddress);
+            _bufferHelper.Free(_resultAddress);
+            GC.SuppressFinalize(this);
         }
 
         /// <summary>
@@ -182,20 +193,11 @@ namespace Reloaded.Assembler
         }
 
         /// <summary>
-        /// Releases the allocated memory for the assembler.
-        /// </summary>
-        public void Dispose()
-        {
-            _bufferHelper.Free(_textAddress);
-            _bufferHelper.Free(_resultAddress);
-        }
-
-        /// <summary>
         /// Attempts to allocate the memory to store the text to be supplied to FASM assembler.
         /// </summary>
-        private void AllocateText(int textSize, int retryCount, MemoryBufferHelper bufferHelper)
+        private void AllocateText(int textSize, int retryCount)
         {
-            var allocationProperties = bufferHelper.Allocate(textSize, 1, Int32.MaxValue, retryCount);
+            var allocationProperties = _bufferHelper.Allocate(textSize, 1, Int32.MaxValue, retryCount);
             _textAddress = allocationProperties.MemoryAddress;
             _textSize = allocationProperties.Size;
 
@@ -206,9 +208,9 @@ namespace Reloaded.Assembler
         /// <summary>
         /// Attempts to allocate the memory to store the result received from FASM assembler.
         /// </summary>
-        private void AllocateResult(int resultSize, int retryCount, MemoryBufferHelper bufferHelper)
+        private void AllocateResult(int resultSize, int retryCount)
         {
-            var allocationProperties = bufferHelper.Allocate(resultSize, 1, Int32.MaxValue, retryCount);
+            var allocationProperties = _bufferHelper.Allocate(resultSize, 1, Int32.MaxValue, retryCount);
             _resultAddress = allocationProperties.MemoryAddress;
             _resultSize = allocationProperties.Size;
 
