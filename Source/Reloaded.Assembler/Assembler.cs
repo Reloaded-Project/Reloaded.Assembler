@@ -38,9 +38,6 @@ namespace Reloaded.Assembler
     /// </summary>
     public unsafe class Assembler : IDisposable
     {
-        // Synchronization primitive for memory allocations/deallocations.
-        private static Mutex _memoryAllocationMutex;
-
         // Address and size of allocation of where the text/mnemonics to be assembled will be stored.
         private IntPtr  _textAddress;
         private int     _textSize;
@@ -57,21 +54,7 @@ namespace Reloaded.Assembler
         {
             _processMemory = new Memory.Sources.Memory();
             _bufferHelper = new MemoryBufferHelper(Process.GetCurrentProcess());
-
-            try
-            {
-                _memoryAllocationMutex = Mutex.OpenExisting(GetMutexName(Process.GetCurrentProcess()));
-            }
-            catch (WaitHandleCannotBeOpenedException)
-            {
-                _memoryAllocationMutex = new Mutex(false, GetMutexName(Process.GetCurrentProcess()));
-            }
         }
-
-        /// <summary>
-        /// Gets the name of the named system-wide mutex.
-        /// </summary>
-        private static string GetMutexName(Process process) => $"Reloaded.Assembler | PID: {process.Id}";
 
         /// <summary>
         /// Creates a new instance of the FASM assembler.
@@ -87,11 +70,9 @@ namespace Reloaded.Assembler
         public Assembler(int textSize = 0x10000, int resultSize = 0x8000)
         {
             // Attempt allocation of memory X times.
-            _memoryAllocationMutex.WaitOne();
             AllocateText(textSize, 3, _bufferHelper);
             AllocateResult(resultSize, 3, _bufferHelper);
-            _memoryAllocationMutex.ReleaseMutex();
-
+            
             IntPtr fasmDllHandle;
 
             // Set functions
@@ -205,10 +186,8 @@ namespace Reloaded.Assembler
         /// </summary>
         public void Dispose()
         {
-            _memoryAllocationMutex.WaitOne();
-            VirtualFree(_textAddress, (UIntPtr) 0, MEM_ALLOCATION_TYPE.MEM_RELEASE);
-            VirtualFree(_resultAddress, (UIntPtr) 0, MEM_ALLOCATION_TYPE.MEM_RELEASE);
-            _memoryAllocationMutex.ReleaseMutex();
+            _bufferHelper.Free(_textAddress);
+            _bufferHelper.Free(_resultAddress);
         }
 
         /// <summary>
@@ -216,19 +195,9 @@ namespace Reloaded.Assembler
         /// </summary>
         private void AllocateText(int textSize, int retryCount, MemoryBufferHelper bufferHelper)
         {
-            // Attempt to allocate memory retryCount times.
-            for (int x = 0; x < retryCount; x++)
-            {
-                var bufferLocation = bufferHelper.FindBufferLocation(textSize, 1, Int32.MaxValue);
-                _textAddress = VirtualAlloc(bufferLocation.MemoryAddress, (UIntPtr) bufferLocation.Size, MEM_ALLOCATION_TYPE.MEM_COMMIT | MEM_ALLOCATION_TYPE.MEM_RESERVE, MEM_PROTECTION.PAGE_EXECUTE_READWRITE);
-
-                if (_textAddress != IntPtr.Zero)
-                {
-                    _textSize = bufferLocation.Size;
-                    break;
-                }
-
-            }
+            var allocationProperties = bufferHelper.Allocate(textSize, 1, Int32.MaxValue, retryCount);
+            _textAddress = allocationProperties.MemoryAddress;
+            _textSize = allocationProperties.Size;
 
             if (_textAddress == IntPtr.Zero)
                 throw new FasmWrapperException("Failed to allocate text memory for Assembler.");
@@ -239,21 +208,13 @@ namespace Reloaded.Assembler
         /// </summary>
         private void AllocateResult(int resultSize, int retryCount, MemoryBufferHelper bufferHelper)
         {
-            // Attempt to allocate memory retryCount times.
-            for (int x = 0; x < retryCount; x++)
-            {
-                var bufferLocation = bufferHelper.FindBufferLocation(resultSize, 1, Int32.MaxValue);
-                _resultAddress = VirtualAlloc(bufferLocation.MemoryAddress, (UIntPtr) bufferLocation.Size, MEM_ALLOCATION_TYPE.MEM_COMMIT | MEM_ALLOCATION_TYPE.MEM_RESERVE, MEM_PROTECTION.PAGE_EXECUTE_READWRITE);
-
-                if (_resultAddress != IntPtr.Zero)
-                {
-                    _resultSize = bufferLocation.Size;
-                    break;
-                }
-            }
+            var allocationProperties = bufferHelper.Allocate(resultSize, 1, Int32.MaxValue, retryCount);
+            _resultAddress = allocationProperties.MemoryAddress;
+            _resultSize = allocationProperties.Size;
 
             if (_resultAddress == IntPtr.Zero)
                 throw new FasmWrapperException("Failed to allocate result memory for Assembler.");
         }
+
     }
 }

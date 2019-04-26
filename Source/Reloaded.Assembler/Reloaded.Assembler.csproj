@@ -25,7 +25,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Reloaded.Memory.Buffers" Version="1.1.1" />
+    <PackageReference Include="Reloaded.Memory.Buffers" Version="1.2.0" />
   </ItemGroup>
 
   <ItemGroup>
