@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -76,17 +77,13 @@ namespace Reloaded.Assembler
 
             IntPtr fasmDllHandle;
 
-            // Set functions
-            if (IntPtr.Size == 4)
-                fasmDllHandle = LoadLibraryW("FASM.dll");
-            else if (IntPtr.Size == 8)
-                fasmDllHandle = LoadLibraryW("FASMX64.dll");
-            else
-            {
-                // Does not actually check OS or architecture but it should be good enough for our purposes.
-                // Users should know that this is a Windows lib for x86/x64
-                throw new FasmWrapperException("Only 32bit and 64bit desktop architectures are supported (X86 and X86_64).");
-            }
+            // Get path of FASM dll
+            string fasmDllPath = GetFasmDLLPath();
+            fasmDllHandle = LoadLibraryW(fasmDllPath);
+
+            // Throw exception if dll not loaded.
+            if (fasmDllHandle == null)
+                throw new FasmWrapperException("Failed to load FASM dll. The FASM dll pointer from LoadLibraryW is null.");
 
             // Obtain delegates to FASM functions.
             IntPtr assembleAddress = GetProcAddress(fasmDllHandle, "fasm_Assemble");
@@ -190,6 +187,44 @@ namespace Reloaded.Assembler
 
                 throw new FasmException(state.ErrorCode, state.Condition, lineHeader.LineNumber, originalMnemonics);
             }
+        }
+
+        /// <summary>
+        /// Retrieves the path of the FASM dll to load.
+        /// </summary>
+        private string GetFasmDLLPath()
+        {
+            const string FASM86DLL = "FASM.dll";
+            const string FASM64DLL = "FASMX64.dll";
+
+            // Check current directory.
+            if (IntPtr.Size == 4 && File.Exists(FASM86DLL))
+                return FASM86DLL;
+            else if (IntPtr.Size == 8 && File.Exists(FASM64DLL))
+                return FASM64DLL;
+
+            // Check DLL Directory
+            string assemblyDirectory = GetExecutingDLLDirectory();
+            string asmDirectoryFasm86 = Path.Combine(assemblyDirectory, FASM86DLL);
+            string asmDirectoryFasm64 = Path.Combine(assemblyDirectory, FASM64DLL);
+
+            if (IntPtr.Size == 4 && File.Exists(asmDirectoryFasm86))
+                return asmDirectoryFasm86;
+            else if (IntPtr.Size == 8 && File.Exists(asmDirectoryFasm64))
+                return asmDirectoryFasm64;
+
+            throw new FasmWrapperException("Appropriate FASM DLL for X86/64 has not been found in either current or library directory.");
+        }
+
+        /// <summary>
+        /// Gets the directory of the currently executing assembly.
+        /// </summary>
+        private string GetExecutingDLLDirectory()
+        {
+            string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+            UriBuilder uri = new UriBuilder(codeBase);
+            string path = Uri.UnescapeDataString(uri.Path);
+            return Path.GetDirectoryName(path);
         }
 
         /// <summary>
