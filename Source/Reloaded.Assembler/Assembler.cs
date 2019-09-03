@@ -40,6 +40,7 @@ namespace Reloaded.Assembler
     public unsafe class Assembler : IDisposable
     {
         // Address and size of allocation of where the text/mnemonics to be assembled will be stored.
+        private object  _lock = new object();
         private IntPtr  _textAddress;
         private int     _textSize;
         private IntPtr  _resultAddress;
@@ -160,27 +161,29 @@ namespace Reloaded.Assembler
                 throw new FasmWrapperException($"Your supplied array of mnemonics to be assembled is too large ({mnemonicBytes.Length} > {_textSize} bytes)." +
                                                 "Consider simplifying your code or creating a new Assembler with greater textSize.");
 
-            _processMemory.WriteRaw(_textAddress, mnemonicBytes);
-
-            // Assemble and check result.
-            FasmResult result = _assembleFunction(_textAddress, _resultAddress, (IntPtr)_resultSize, passLimit, IntPtr.Zero);
-
-            //    As stated in FASMDLL.TXT, at the beginning of the block, the FASM_STATE structure will reside.
-            //    It is defined in FASM.ASH. We read it here.
-            
-            _processMemory.Read(_resultAddress, out FasmState state);
-
-            if (result == FasmResult.Ok)
+            lock (_lock)
             {
-                byte[] assembledBytes = new byte[state.OutputLength];
-                Marshal.Copy((IntPtr)state.OutputData, assembledBytes, 0, assembledBytes.Length);
-                return assembledBytes;
-            }
-            else
-            {
+                _processMemory.WriteRaw(_textAddress, mnemonicBytes);
+
+                // Assemble and check result.
+                var result = _assembleFunction(_textAddress, _resultAddress, (IntPtr)_resultSize, passLimit, IntPtr.Zero);
+
+                //    As stated in FASMDLL.TXT, at the beginning of the block, the FASM_STATE structure will reside.
+                //    It is defined in FASM.ASH. We read it here.
+
+                FasmState state;
+                _processMemory.Read(_resultAddress, out state);
+
+                if (result == FasmResult.Ok)
+                {
+                    byte[] assembledBytes = new byte[state.OutputLength];
+                    Marshal.Copy((IntPtr)state.OutputData, assembledBytes, 0, assembledBytes.Length);
+                    return assembledBytes;
+                }
+                
                 // TODO: Make this exception more detailed in time with FASMX64's development.
                 /* For now, I still do not know if FASMX64 will ever plan to change the pointer size,
-                   so for now, I will opt to not get the line details and/or other more "complex" info. */
+                       so for now, I will opt to not get the line details and/or other more "complex" info. */
 
                 string[] originalMnemonics = mnemonics.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
                 var lineHeader = state.GetLineHeader();
