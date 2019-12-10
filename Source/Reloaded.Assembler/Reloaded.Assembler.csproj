@@ -21,7 +21,7 @@
     <PackageIconUrl>https://avatars1.githubusercontent.com/u/45473408?s=400&amp;u=b591dd9f053703e87a08ccc56287a9119e9758cb&amp;v=4</PackageIconUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Reloaded-Project/Reloaded.Assembler</RepositoryUrl>
-    <Version>1.0.7</Version>
+    <Version>1.0.8</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
@@ -43,6 +43,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Reloaded.Memory.Buffers" Version="1.2.0" />
+    <PackageReference Include="Reloaded.Memory.Buffers" Version="1.3.3" />
   </ItemGroup>
 </Project>
