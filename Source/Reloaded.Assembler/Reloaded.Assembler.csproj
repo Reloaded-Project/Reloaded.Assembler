@@ -19,7 +19,7 @@
     <PackageIconUrl></PackageIconUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Reloaded-Project/Reloaded.Assembler</RepositoryUrl>
-    <Version>1.0.11</Version>
+    <Version>1.0.12</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>Icon.png</PackageIcon>
   </PropertyGroup>
@@ -46,6 +46,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Reloaded.Memory.Buffers" Version="1.4.3" />
+    <PackageReference Include="Reloaded.Memory.Buffers" Version="1.4.4" />
   </ItemGroup>
 </Project>
