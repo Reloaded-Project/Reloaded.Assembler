@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFrameworks>
       netstandard2.0;
+      net5.0;
+      net6.0;
     </TargetFrameworks>
     <Platforms>AnyCPU;x86;x64</Platforms>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -19,9 +21,11 @@
     <PackageIconUrl></PackageIconUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Reloaded-Project/Reloaded.Assembler</RepositoryUrl>
-    <Version>1.0.12</Version>
+    <Version>1.0.13</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>Icon.png</PackageIcon>
+
+    <IsTrimmable>true</IsTrimmable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -46,6 +50,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Reloaded.Memory.Buffers" Version="1.4.4" />
+    <PackageReference Include="Reloaded.Memory.Buffers" Version="1.4.6" />
   </ItemGroup>
 </Project>
