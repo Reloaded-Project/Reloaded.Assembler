@@ -21,9 +21,9 @@ namespace Reloaded.Assembler
     {
         // Address and size of allocation of where the text/mnemonics to be assembled will be stored.
         private object  _lock = new object();
-        private IntPtr  _textAddress;
+        private nuint  _textAddress;
         private int     _textSize;
-        private IntPtr  _resultAddress;
+        private nuint _resultAddress;
         private int     _resultSize;
 
         private static readonly MemoryBufferHelper _bufferHelper;
@@ -146,7 +146,7 @@ namespace Reloaded.Assembler
                 _processMemory.WriteRaw(_textAddress, mnemonicBytes);
 
                 // Assemble and check result.
-                var result = _assembleFunction(_textAddress, _resultAddress, (IntPtr)_resultSize, passLimit, IntPtr.Zero);
+                var result = _assembleFunction((IntPtr)(void*)_textAddress, (IntPtr)(void*)_resultAddress, (IntPtr)_resultSize, passLimit, IntPtr.Zero);
 
                 //    As stated in FASMDLL.TXT, at the beginning of the block, the FASM_STATE structure will reside.
                 //    It is defined in FASM.ASH. We read it here.
@@ -219,7 +219,7 @@ namespace Reloaded.Assembler
             _textAddress = allocationProperties.MemoryAddress;
             _textSize = allocationProperties.Size;
 
-            if (_textAddress == IntPtr.Zero)
+            if (_textAddress == 0)
                 throw new FasmWrapperException("Failed to allocate text memory for Assembler.");
         }
 
@@ -232,7 +232,7 @@ namespace Reloaded.Assembler
             _resultAddress = allocationProperties.MemoryAddress;
             _resultSize = allocationProperties.Size;
 
-            if (_resultAddress == IntPtr.Zero)
+            if (_resultAddress == 0)
                 throw new FasmWrapperException("Failed to allocate result memory for Assembler.");
         }
 

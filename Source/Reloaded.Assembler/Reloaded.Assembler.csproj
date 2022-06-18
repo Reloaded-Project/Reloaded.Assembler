@@ -25,6 +25,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>Icon.png</PackageIcon>
 
+    <LangVersion>preview</LangVersion>
     <IsTrimmable>true</IsTrimmable>
   </PropertyGroup>
 
@@ -50,6 +51,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Reloaded.Memory.Buffers" Version="1.4.6" />
+    <PackageReference Include="Reloaded.Memory.Buffers" Version="2.0.0" />
   </ItemGroup>
 </Project>
