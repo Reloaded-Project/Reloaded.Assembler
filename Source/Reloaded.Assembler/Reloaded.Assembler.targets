@@ -1,8 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <NativeLibs Include="$(MSBuildThisFileDirectory)*.*" />
-    <None Include="@(NativeLibs)">
+    <NativeLibs32 Include="$(MSBuildThisFileDirectory)FASM.DLL" Condition="('$(Platform)' == 'AnyCPU' and '$(RuntimeIdentifier)' == '') or '$(Platform)' == 'x86' or '$(RuntimeIdentifier)' == 'win-x86'" />
+    <NativeLibs64 Include="$(MSBuildThisFileDirectory)FASMX64.DLL" Condition="('$(Platform)' == 'AnyCPU' and '$(RuntimeIdentifier)' == '') or '$(Platform)' == 'x64' or '$(RuntimeIdentifier)' == 'win-x64'" />
+    <None Include="@(NativeLibs32);@(NativeLibs64)">
+      <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+
+    <None Include="$(MSBuildThisFileDirectory)Reloaded.Assembler.targets">
       <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -1,6 +1,9 @@
 ﻿
 <Project Sdk="Microsoft.NET.Sdk">
-
+  
+  <!-- Import Targets -->
+  <Import Project="../Reloaded.Assembler/Reloaded.Assembler.targets" />
+  
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <IsPackable>false</IsPackable>

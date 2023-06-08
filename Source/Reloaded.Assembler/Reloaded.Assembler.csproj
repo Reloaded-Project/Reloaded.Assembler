@@ -14,14 +14,12 @@
     <Authors>Sewer56</Authors>
     <Product>Reloaded</Product>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb;.dll</AllowedOutputExtensionsInPackageBuildOutputFolder>
-    <Description>Minimal .NET wrapper around the simple, easy to use Flat Assembler written by Tomasz Grysztar. Supports both x64 and x86 development.</Description>
+    <Description>Minimal .NET wrapper around the simple, easy to use Flat Assembler written by Tomasz Grysztar. Supports both x64 and x86 development on Windows.</Description>
     <Copyright>LGPL V3</Copyright>
-    <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Reloaded-Project/Reloaded.Assembler</PackageProjectUrl>
-    <PackageIconUrl></PackageIconUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Reloaded-Project/Reloaded.Assembler</RepositoryUrl>
-    <Version>1.0.14</Version>
+    <Version>1.0.15</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>Icon.png</PackageIcon>
 
@@ -32,22 +30,16 @@
   <ItemGroup>
     <None Include="..\..\LICENSE">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>.</PackagePath>
     </None>
     <None Include="..\Icon.png">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>.</PackagePath>
     </None>
     <None Include="Reloaded.Assembler.targets" Pack="true" PackagePath="build" />
-    <None Include="FASM-LICENSE.TXT" Pack="true" PackagePath="build">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="FASM.DLL" Pack="true" PackagePath="build">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="FASMX64.DLL" Pack="true" PackagePath="build">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="FASM-LICENSE.TXT" Pack="true" PackagePath="build"/>
+    <None Include="FASM.DLL" Pack="true" PackagePath="build"/>
+    <None Include="FASMX64.DLL" Pack="true" PackagePath="build"/>
   </ItemGroup>
 
   <ItemGroup>
