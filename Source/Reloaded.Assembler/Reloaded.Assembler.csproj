@@ -19,7 +19,7 @@
     <PackageProjectUrl>https://github.com/Reloaded-Project/Reloaded.Assembler</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Reloaded-Project/Reloaded.Assembler</RepositoryUrl>
-    <Version>1.0.15</Version>
+    <Version>1.0.16</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>Icon.png</PackageIcon>
 
