@@ -184,13 +184,7 @@ public unsafe class Assembler : IDisposable
     /// <summary>
     /// Gets the directory of the currently executing assembly.
     /// </summary>
-    private string GetExecutingDLLDirectory()
-    {
-        string codeBase = Assembly.GetExecutingAssembly().CodeBase;
-        UriBuilder uri = new UriBuilder(codeBase);
-        string path = Uri.UnescapeDataString(uri.Path);
-        return Path.GetDirectoryName(path);
-    }
+    private string GetExecutingDLLDirectory() => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
     /// <summary>
     /// Attempts to allocate the memory to store the text to be supplied to FASM assembler.
